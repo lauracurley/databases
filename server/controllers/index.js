@@ -1,10 +1,12 @@
 var models = require('../models');
 var app = require('../app.js');
 var cors = require('cors');
+var express = require('express');
 
-app.use(cors());
+var corsApp = express();
+corsApp.use(cors());
 var corsOptions = {
-  'access-control-allow-origin': '*',
+  'Access-Control-Allow-Origin': '*',
   'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
   //'access-control-allow-headers': 'content-type, accept',
   'access-control-max-age': 10,
@@ -19,13 +21,17 @@ module.exports = {
   messages: {
     get: function (req, res) {
 
-      var data = models.messages.get(username, text, room);
+      models.messages.get(function (err, results) {
+        corsApp.get('/classes/messages', cors(corsOptions), function(req, res) {
+          console.log('-------------------', res.status);
+          res.status(res.status);
+          res.setHeader('Content-Type', 'application/json');  // this is different because it's not json?
+          // this is undefined because we're not using a callback!!!
+          res.json(results);  // here is where we send back all the messages
+        });
 
-      app.get('/classes/messages', cors(corsOptions), function(req, res) {
-        res.status(200);
-        res.setHeader('Content-Type', 'application/json');  // this is different because it's not json?
-        res.send(JSON.stringify(data));  // here is where we send back all the messages
       });
+
     }, // a function which handles a get req for all messages
     post: function (req, res) {
       app.get('/classes/messages', cors(corsOptions), function(req, res) {
@@ -44,7 +50,7 @@ module.exports = {
       app.get('/classes/users', cors(corsOptions), function(req, res) {
         res.status(200);
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(data));
+        res.json(data);
       });
 
     },

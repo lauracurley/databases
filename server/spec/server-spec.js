@@ -47,7 +47,7 @@ describe('Persistent Node Chat Server', function() {
 
         // TODO-DONE: You might have to change this test to get all the data from
         // your message table, since this is schema-dependent.
-        var queryString = 'SELECT * FROM messages';
+        var queryString = 'SELECT * FROM messages (?)';
         var queryArgs = []; // TODO: ? Do we pass anything in here?
 
         dbConnection.query(queryString, queryArgs, function(err, results) {

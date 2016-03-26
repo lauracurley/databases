@@ -35,6 +35,7 @@ CREATE TABLE friends (
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+INSERT INTO messages (text) VALUES ('jazzed')
 
 
 /*  Execute this file from the command line by typing:
