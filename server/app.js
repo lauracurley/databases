@@ -1,6 +1,7 @@
 var express = require('express');
 var db = require('./db');
 
+
 // Middleware
 var morgan = require('morgan');
 var parser = require('body-parser');
@@ -17,6 +18,9 @@ app.set('port', 3000);
 // Logging and parsing
 app.use(morgan('dev'));
 app.use(parser.json());
+// old codebase used the below
+// app.use(bodyParser.json());
+
 
 // Set up our routes
 app.use('/classes', router);
