@@ -22,25 +22,26 @@ module.exports = {
     get: function (req, res) {
 
       models.messages.get(function (err, results) {
-        corsApp.get('/classes/messages', cors(corsOptions), function(req, res) {
-          console.log('-------------------', res.status);
-          res.status(res.status);
-          res.setHeader('Content-Type', 'application/json');  // this is different because it's not json?
-          // this is undefined because we're not using a callback!!!
-          res.json(results);  // here is where we send back all the messages
-        });
-
+        // corsApp.get('/classes/messages', cors(corsOptions), function(req, res) {
+        //   console.log('-------------------', res.status);
+        //   res.status(res.status);
+        //   res.setHeader('Content-Type', 'application/json');  // this is different because it's not json?
+        //   // this is undefined because we're not using a callback!!!
+        //   res.json(results);  // here is where we send back all the messages
+        // });
+        if (err) { console.log('error'); }
+        // console.log( 'just the results', results);
+        res.json(results);
       });
 
     }, // a function which handles a get req for all messages
     post: function (req, res) {
-      app.get('/classes/messages', cors(corsOptions), function(req, res) {
-        res.status(200);
-        res.setHeader('Content-Type', 'application/json');  // this is different because it's not json?
-        res.send('somestring that doesnt matter');  // here is where we send back all the messages
+      var params = [req.body.message, req.body.username, req.body.roomname];
+      models.messages.post(params, function(err, results) {
+        if (err) { /* do something */ }
+        res.sendStatus(201);
       });
-
-    } // a function which handles posting a message to the database
+    }
   },
 
   users: {
@@ -63,6 +64,11 @@ module.exports = {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(data));
       });
+    }
+  },
+  any: {
+    options: function(req, res) {
+      res.set(corsOptions);
     }
   }
 };

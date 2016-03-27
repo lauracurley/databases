@@ -12,7 +12,7 @@
 // }
 
 // Put your parse application keys here!
-$.ajaxPrefilter(function (settings, _, jqXHR) {
-  jqXHR.setRequestHeader('X-Parse-Application-Id', 'id');
-  jqXHR.setRequestHeader('X-Parse-REST-API-Key', 'key');
-});
+// $.ajaxPrefilter(function (settings, _, jqXHR) {
+//   jqXHR.setRequestHeader('X-Parse-Application-Id', 'id');
+//   jqXHR.setRequestHeader('X-Parse-REST-API-Key', 'key');
+// });
